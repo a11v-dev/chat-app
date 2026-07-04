@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Friend Chat</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Friends">
+        <div class="brand-row">
+          <div class="brand-mark">FC</div>
+          <div>
+            <h1>Friend Chat</h1>
+            <p>Talk, save, repeat.</p>
+          </div>
+        </div>
+
+        <form class="add-friend" id="friendForm">
+          <label for="friendName">Add friend</label>
+          <div class="friend-input-row">
+            <input id="friendName" name="friendName" autocomplete="off" placeholder="Friend name" />
+            <button type="submit" aria-label="Add friend">+</button>
+          </div>
+        </form>
+
+        <nav class="friend-list" id="friendList" aria-label="Friend list"></nav>
+      </aside>
+
+      <section class="chat-panel" aria-label="Chat">
+        <header class="chat-header">
+          <div class="active-avatar" id="activeAvatar">A</div>
+          <div>
+            <h2 id="activeName">Ava</h2>
+            <p id="activeStatus">Online now</p>
+          </div>
+          <button class="clear-button" id="clearChat" type="button">Clear</button>
+        </header>
+
+        <div class="messages" id="messages" aria-live="polite"></div>
+
+        <form class="composer" id="messageForm">
+          <input id="messageInput" autocomplete="off" placeholder="Type a message..." />
+          <button type="submit">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
