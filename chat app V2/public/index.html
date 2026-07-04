@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="chat-container">
+        <h2>💬 Friend Chat Room</h2>
+        <div id="messages"></div>
+        <form id="chat-form">
+            <input type="text" id="username" placeholder="Your Name..." required>
+            <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const form = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+        const usernameInput = document.getElementById('username');
+        const messagesDiv = document.getElementById('messages');
+
+        // Send message to server when form is submitted
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const data = {
+                user: usernameInput.value,
+                text: messageInput.value
+            };
+
+            socket.emit('chat message', data);
+            messageInput.value = ''; // Clear input field
+        });
+
+        // Listen for messages coming from the server
+        socket.on('chat message', (data) => {
+            const item = document.createElement('div');
+            item.classList.add('message');
+            
+            // Highlight your own messages differently if you want, or just display them
+            item.innerHTML = `<strong>${data.user}:</strong> ${data.text}`;
+            
+            messagesDiv.appendChild(item);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to bottom
+        });
+    </script>
+</body>
+</html>
